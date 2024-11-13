@@ -12,8 +12,24 @@ Password_Is_Generated = False
 Questions_List = []
 
 def Ask_Questions():
-    PasswordLength = input("Please enter a password length: ")
-    SpecialSymbols_Decision = input("Do you want to have special characters in your password? (y/n): ")
+    PasswordLengthCorrect = False
+    SpecialSymbols_Decision_Answer = False
+    while PasswordLengthCorrect == False:
+        PasswordLength = input("Please enter a password length: ")
+        try:
+            PasswordLength = int(PasswordLength)
+            if PasswordLength > 0:
+                PasswordLengthCorrect = True
+            else:
+                continue
+        except ValueError:
+            continue
+    while SpecialSymbols_Decision_Answer == False:
+        SpecialSymbols_Decision = input("Do you want to have special characters in your password? (y/n): ")
+        if SpecialSymbols_Decision == "y" or SpecialSymbols_Decision == "Y" or SpecialSymbols_Decision == "n" or SpecialSymbols_Decision == "N":
+            SpecialSymbols_Decision_Answer = True
+        else:
+            continue
     return PasswordLength, SpecialSymbols_Decision
 
 def Generate_Password_With_SpecialChars(PW_Length):
@@ -36,7 +52,6 @@ def Generate_Password_With_SpecialChars(PW_Length):
 
 def Generate_Password_Without_SpecialChars(PW_Length):
     PasswordLength = PW_Length
-    #print("Passwordlength: ", PasswordLength)
     for i in range(0, int(PasswordLength)):
         LowerCase_Symbol = random.choice(LowerCase)
         Password.append(LowerCase_Symbol)
@@ -67,4 +82,3 @@ while Password_Is_Generated == False:
                 Password_Is_Generated = True
         else:
             continue
-            # Ask_Questions()
