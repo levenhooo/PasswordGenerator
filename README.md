@@ -8,5 +8,5 @@ Features:
 
 ToDo:
 - UI
-- Implement seed randomizer
+- Increase security by seed randomizing
 - No duplicate characters
