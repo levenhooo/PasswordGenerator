@@ -1,4 +1,5 @@
 import random
+import pyperclip
 
 LowerCase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 UpperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
@@ -48,6 +49,9 @@ def Generate_Password_With_SpecialChars(PW_Length):
         FinalPassword.append(FinalPasswordChars)
     output_string = ''.join(str(element) for element in FinalPassword)
     print("Your new password is: ", output_string)
+    clipboard = input("Do you want to copy your password to your clipboard? (y/n)")
+    if clipboard == "y" or clipboard == "Y":
+        pyperclip.copy(output_string)
     return True
 
 def Generate_Password_Without_SpecialChars(PW_Length):
@@ -64,8 +68,10 @@ def Generate_Password_Without_SpecialChars(PW_Length):
         FinalPassword.append(FinalPasswordChars)
     output_string = ''.join(str(element) for element in FinalPassword)
     print("Your new password is: ", output_string)
+    clipboard = input("Do you want to copy your password to your clipboard? (y/n)")
+    if clipboard == "y" or clipboard == "Y":
+        pyperclip.copy(output_string)
     return True
-        
 
 while Password_Is_Generated == False:
     Questions_List = Ask_Questions()
