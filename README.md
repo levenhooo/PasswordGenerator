@@ -1,5 +1,6 @@
 Dependencies:
 - pyperclip (pip install pyperclip)
+- secrets (pip install secrets)
 
 Features:
 - Choose the length of your password
