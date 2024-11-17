@@ -1,20 +1,22 @@
-import random
 import pyperclip
+import secrets
 
 LowerCase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 UpperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 SpecialSymbols = ["!", '"', "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "\\", "]", "^", "_", "", "{", "|", "}", "~"]
-Numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 PasswordLength = 0
 SpecialSymbols_Decision = "y"
-Password = []
-FinalPassword = []
 Password_Is_Generated = False
 Questions_List = []
+Character_List = []
+Password = []
+FinalPassword = []
 
 def Ask_Questions():
     PasswordLengthCorrect = False
     SpecialSymbols_Decision_Answer = False
+
     while PasswordLengthCorrect == False:
         PasswordLength = input("Please enter a password length: ")
         try:
@@ -25,28 +27,46 @@ def Ask_Questions():
                 continue
         except ValueError:
             continue
+
     while SpecialSymbols_Decision_Answer == False:
         SpecialSymbols_Decision = input("Do you want to have special characters in your password? (y/n): ")
         if SpecialSymbols_Decision == "y" or SpecialSymbols_Decision == "Y" or SpecialSymbols_Decision == "n" or SpecialSymbols_Decision == "N":
             SpecialSymbols_Decision_Answer = True
         else:
             continue
+
     return PasswordLength, SpecialSymbols_Decision
 
 def Generate_Password_With_SpecialChars(PW_Length):
     PasswordLength = PW_Length
+
     for i in range(0, int(PasswordLength)):
-        LowerCase_Symbol = random.choice(LowerCase)
+        LowerCase_Symbol = secrets.choice(LowerCase)
         Password.append(LowerCase_Symbol)
-        UpperCase_Symbol = random.choice(UpperCase)
+        UpperCase_Symbol = secrets.choice(UpperCase)
         Password.append(UpperCase_Symbol)
-        SpecialSymbols_Symbol = random.choice(SpecialSymbols)
+        SpecialSymbols_Symbol = secrets.choice(SpecialSymbols)
         Password.append(SpecialSymbols_Symbol)
-        Numbers_Symbol = random.choice(Numbers)
+        Numbers_Symbol = secrets.choice(Numbers)
         Password.append(Numbers_Symbol)
+
     for b in range(0, int(PasswordLength)):
-        FinalPasswordChars = random.choice(Password)
+        FinalPasswordChars = secrets.choice(Password)
         FinalPassword.append(FinalPasswordChars)
+
+        if b >= 1:
+            RepeatingCharacters = False
+            if FinalPassword[b - 1] == FinalPassword[b]:
+                RepeatingCharacters = True
+                while RepeatingCharacters == True:
+                    NewChar = secrets.choice(Password)
+                    FinalPassword[b] = NewChar
+                    if FinalPassword[b - 1] == FinalPassword[b]:
+                        continue
+                    else:
+                        RepeatingCharacters = False
+                        break
+
     output_string = ''.join(str(element) for element in FinalPassword)
     print("Your new password is: ", output_string)
     clipboard = input("Do you want to copy your password to your clipboard? (y/n)")
@@ -56,16 +76,31 @@ def Generate_Password_With_SpecialChars(PW_Length):
 
 def Generate_Password_Without_SpecialChars(PW_Length):
     PasswordLength = PW_Length
+
     for i in range(0, int(PasswordLength)):
-        LowerCase_Symbol = random.choice(LowerCase)
+        LowerCase_Symbol = secrets.choice(LowerCase)
         Password.append(LowerCase_Symbol)
-        UpperCase_Symbol = random.choice(UpperCase)
+        UpperCase_Symbol = secrets.choice(UpperCase)
         Password.append(UpperCase_Symbol)
-        Numbers_Symbol = random.choice(Numbers)
+        Numbers_Symbol = secrets.choice(Numbers)
         Password.append(Numbers_Symbol)
+
     for b in range(0, int(PasswordLength)):
-        FinalPasswordChars = random.choice(Password)
+        FinalPasswordChars = secrets.choice(Password)
         FinalPassword.append(FinalPasswordChars)
+        if b >= 1:
+            RepeatingCharacters = False
+            if FinalPassword[b - 1] == FinalPassword[b]:
+                RepeatingCharacters = True
+                while RepeatingCharacters == True:
+                    NewChar = secrets.choice(Password)
+                    FinalPassword[b] = NewChar
+                    if FinalPassword[b - 1] == FinalPassword[b]:
+                        continue
+                    else:
+                        RepeatingCharacters = False
+                        break
+
     output_string = ''.join(str(element) for element in FinalPassword)
     print("Your new password is: ", output_string)
     clipboard = input("Do you want to copy your password to your clipboard? (y/n)")
