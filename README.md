@@ -1,6 +1,7 @@
 Dependencies:
 - pyperclip
 - secrets
+- sys
 
 Features:
 - Choose the length of your password
