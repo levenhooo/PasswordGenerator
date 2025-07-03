@@ -1,5 +1,6 @@
 import pyperclip
 import secrets
+import sys
 
 LowerCase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 UpperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
@@ -17,7 +18,7 @@ def Ask_Questions():
     PasswordLengthCorrect = False
     SpecialSymbols_Decision_Answer = False
 
-    while PasswordLengthCorrect == False:
+    while not PasswordLengthCorrect:
         PasswordLength = input("Please enter a password length: ")
         try:
             PasswordLength = int(PasswordLength)
@@ -28,7 +29,7 @@ def Ask_Questions():
         except ValueError:
             continue
 
-    while SpecialSymbols_Decision_Answer == False:
+    while not SpecialSymbols_Decision_Answer:
         SpecialSymbols_Decision = input("Do you want to have special characters in your password? (y/n): ")
         if SpecialSymbols_Decision == "y" or SpecialSymbols_Decision == "Y" or SpecialSymbols_Decision == "n" or SpecialSymbols_Decision == "N":
             SpecialSymbols_Decision_Answer = True
@@ -39,7 +40,9 @@ def Ask_Questions():
 
 def Generate_Password_With_SpecialChars(PW_Length):
     PasswordLength = PW_Length
-
+    output_string = ""
+    Password.clear()
+    FinalPassword.clear()
     for i in range(0, int(PasswordLength)):
         LowerCase_Symbol = secrets.choice(LowerCase)
         Password.append(LowerCase_Symbol)
@@ -58,7 +61,7 @@ def Generate_Password_With_SpecialChars(PW_Length):
             RepeatingCharacters = False
             if FinalPassword[b - 1] == FinalPassword[b]:
                 RepeatingCharacters = True
-                while RepeatingCharacters == True:
+                while RepeatingCharacters:
                     NewChar = secrets.choice(Password)
                     FinalPassword[b] = NewChar
                     if FinalPassword[b - 1] == FinalPassword[b]:
@@ -76,7 +79,9 @@ def Generate_Password_With_SpecialChars(PW_Length):
 
 def Generate_Password_Without_SpecialChars(PW_Length):
     PasswordLength = PW_Length
-
+    output_string = ""
+    Password.clear()
+    FinalPassword.clear()
     for i in range(0, int(PasswordLength)):
         LowerCase_Symbol = secrets.choice(LowerCase)
         Password.append(LowerCase_Symbol)
@@ -92,7 +97,7 @@ def Generate_Password_Without_SpecialChars(PW_Length):
             RepeatingCharacters = False
             if FinalPassword[b - 1] == FinalPassword[b]:
                 RepeatingCharacters = True
-                while RepeatingCharacters == True:
+                while RepeatingCharacters:
                     NewChar = secrets.choice(Password)
                     FinalPassword[b] = NewChar
                     if FinalPassword[b - 1] == FinalPassword[b]:
@@ -108,7 +113,8 @@ def Generate_Password_Without_SpecialChars(PW_Length):
         pyperclip.copy(output_string)
     return True
 
-while Password_Is_Generated == False:
+
+while not Password_Is_Generated:
     Questions_List = Ask_Questions()
     PW_Length = Questions_List[0]
     SpecialSymbols_Decision_Dummy = Questions_List[1]
@@ -123,3 +129,16 @@ while Password_Is_Generated == False:
                 Password_Is_Generated = True
         else:
             continue
+    decision_has_been_made = False
+    while decision_has_been_made != True:
+        decision = input("Do you want to generate another password? (y/n)")
+        if decision == "y" or decision == "Y":
+            
+            decision_has_been_made = True
+            Password_Is_Generated = False
+        elif decision == "n" or decision == "N":
+            Password_Is_Generated = True
+            sys.exit(0)
+        else:
+            continue
+        
